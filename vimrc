@@ -1,5 +1,5 @@
 " add color scheme for vim
-colorscheme blue
+colorscheme industry 
 
 " enable syntax processing
 syntax enable
