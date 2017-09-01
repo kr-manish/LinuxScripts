@@ -36,3 +36,6 @@ set incsearch
 
 " highlight matches
 set hlsearch
+
+" enable filetype detection
+filetype on
