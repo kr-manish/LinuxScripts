@@ -19,12 +19,30 @@ def base64_encode_decode(action, data):
 # Caeser Cypher
 def caeser_cypher(key, action, data):
 
+    result_str = ""
     if action == 'decode':
         key = -key
 
-    for chr in data:
-        num = ord(chr)
-        num += key
+    for sym in data:
+        if sym.isalpha():
+            num = ord(sym)
+            num += key
+            if sym.isupper():
+                if num > ord('Z'):
+                    num -= 26
+                elif num < ord('A'):
+                    num += 26
+            else:
+                if num > ord('z'):
+                    num -= 26
+                elif num < ord('a'):
+                    num += 26
+
+            result_str += chr(num)
+        else:
+            result_str += sym
+    logging.info("OUTPUT: {}".format(result_str))
+
 # To parse the arguments passed
 def argument_parser():
     parser = argparse.ArgumentParser()
@@ -59,7 +77,11 @@ def main():
         base64_encode_decode(action, data)
 
     if method == 'caeser':
-        caeser_cypher(args.key, action, data)
+        key = args.key
+        if key >=0 and key < 27:
+            caeser_cypher(key, action, data)
+        else:
+            logging.error("Key should be in the range 0-26")
 
 if __name__ == "__main__":
     main()
