@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo "Setting up the linux machine!!!"
+
+echo "============Important packages Installation==========="
+sudo apt-get install vim
+sudo apt-get install git
+echo "Done!"
+
+
+echo "===========Incremental history setup========="
+touch ~/.inputrc
+
+echo '"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char' > ~/.inputrc
+echo "Incremental history Done!"
+
+echo "=========GITHUB SSH-KEY ADD==========="
+ssh-keygen -t rsa -b 4096 -C "kumar8manish@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add -K ~/.ssh/id_rsa
+echo "now add manually to github for now!"
+
