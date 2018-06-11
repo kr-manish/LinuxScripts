@@ -1,0 +1,65 @@
+#!/bin/bash
+
+echo "Setting up the linux machine!!!"
+echo "Options -- 
+	-- 1 - important packages
+	-- 2 - Incremental history
+	-- 3 - GITHUB ssh-key addition (some manual work)
+	-- 4 - initial local git setup
+	-- 5 - VIM Vundle Setup
+	-- all
+	-- leave"
+while :
+do
+	read -p 'Choose option: ' input_str
+	case $input_str in
+		1 | all)
+			echo "============Important packages Installation==========="
+			sudo apt-get install vim
+			sudo apt-get install git
+			echo "Done!"
+			;;&
+
+		2 | all)
+			echo "===========Incremental history setup========="
+			touch ~/.inputrc
+
+			echo '"\e[A": history-search-backward
+			"\e[B": history-search-forward
+			"\e[C": forward-char
+			"\e[D": backward-char' > ~/.inputrc
+			echo "Incremental history Done!"
+			;;&
+
+		3 | all)
+			echo "=========GITHUB SSH-KEY ADD==========="
+			ssh-keygen -t rsa -b 4096 -C "kumar8manish@gmail.com"
+			eval "$(ssh-agent -s)"
+			ssh-add -K ~/.ssh/id_rsa
+			echo "now add manually to github for now!"
+			;;&
+
+		4 | all)
+			echo "=========Local GIT setup============"
+			git config --global user.name "kr-manish"
+			git config --global user.email "kumar8manish@gmail.com"
+			git config --list
+			echo "Added!!!"
+			;;&
+
+		5 | all)
+			echo "=========VIM vundle Setup========="
+			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+			cp vimrc ~/.vimrc
+			echo "Open vim and run the command - :PluginInstall"
+			;;
+
+		leave)
+			exit
+			;;
+
+		*)
+			echo "Next option. Enter a valid option"
+			;;
+	esac
+done
