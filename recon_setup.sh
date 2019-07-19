@@ -36,6 +36,14 @@ cd $Tools_dir/masscan && make
 cp $Tools_dir/masscan/bin/masscan /usr/local/bin
 
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "+                         EyeWitness                                +"
+echo "+      https://github.com/FortyNorthSecurity/EyeWitness             +"
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+git clone https://github.com/FortyNorthSecurity/EyeWitness.git $Tools_dir
+cd $Tools_dir/EyeWitness/setup
+./setup.sh
+
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo "+              SecLists and filter-resolved                         +"
 echo "+        https://github.com/danielmiessler/SecLists                 +"
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
