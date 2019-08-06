@@ -7,52 +7,86 @@ mkdir -p $Tools_dir
 echo "=======This is to setup all the tools required for recon ======"
 
 sudo apt-get update
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+                            Amass                                  +"
-echo "+      https://github.com/OWASP/Amass/blob/master/doc/install.md    +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-sudo apt install -y snapd
-sudo snap install amass
-sudo systemctl start snapd
-sudo systemctl enable snapd
-sudo systemctl start apparmor
-sudo systemctl enable apparmor
-echo "export PATH=$PATH:/snap/bin" >> ~/.bashrc
-sleep 5
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+                            MassDNS                                +"
-echo "+     https://github.com/blechschmidt/massdns                       +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-git clone https://github.com/blechschmidt/massdns.git "$Tools_dir/massdns"
-cd $Tools_dir/massdns && make
-echo 'alias massdns="/root/Tools/massdns/bin/massdns"' >> ~/.bashrc
+echo "You have following options --
+	-- 1 - Amass
+	-- 2 - MassDns
+	-- 3 - Masscan
+	-- 4 - EyeWitness
+	-- 5 - SecList and filter-resolved
+	-- all - Run all of them
+	-- leave - Leave the Setup"
 
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+                            Masscan                                +"
-echo "+    https://github.com/robertdavidgraham/masscan                   +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+while:
+do
+    read -p 'Choose option: ' input_str
+    case $input_str in
+	    1 | all)
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    echo "+                            Amass                                  +"
+		    echo "+      https://github.com/OWASP/Amass/blob/master/doc/install.md    +"
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    sudo apt install -y snapd
+		    sudo snap install amass
+		    sudo systemctl start snapd
+		    sudo systemctl enable snapd
+		    sudo systemctl start apparmor
+		    sudo systemctl enable apparmor
+		    echo "export PATH=$PATH:/snap/bin" >> ~/.bashrc
+		    sleep 5
+		    ;;&
 
-sudo apt-get install -y git gcc make libpcap-dev
-git clone https://github.com/robertdavidgraham/masscan "$Tools_dir/masscan"
-cd $Tools_dir/masscan && make
-cp $Tools_dir/masscan/bin/masscan /usr/local/bin
+	    2 | all)
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    echo "+                            MassDNS                                +"
+		    echo "+     https://github.com/blechschmidt/massdns                       +"
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+                         EyeWitness                                +"
-echo "+      https://github.com/FortyNorthSecurity/EyeWitness             +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-git clone https://github.com/FortyNorthSecurity/EyeWitness.git "$Tools_dir/EyeWitness"
-cd $Tools_dir/EyeWitness/setup
-./setup.sh
+		    git clone https://github.com/blechschmidt/massdns.git "$Tools_dir/massdns"
+		    cd $Tools_dir/massdns && make
+		    echo 'alias massdns="/root/Tools/massdns/bin/massdns"' >> ~/.bashrc
+		    ;;&
 
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+              SecLists and filter-resolved                         +"
-echo "+        https://github.com/danielmiessler/SecLists                 +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	    3 | all)
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    echo "+                            Masscan                                +"
+		    echo "+    https://github.com/robertdavidgraham/masscan                   +"
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-git clone https://github.com/danielmiessler/SecLists.git "$Tools_dir/SecLists"
-go get github.com/tomnomnom/hacks/filter-resolved
-echo "export PATH=$PATH:/root/go/bin" >> ~/.bashrc
+		    sudo apt-get install -y git gcc make libpcap-dev
+		    git clone https://github.com/robertdavidgraham/masscan "$Tools_dir/masscan"
+		    cd $Tools_dir/masscan && make
+		    cp $Tools_dir/masscan/bin/masscan /usr/local/bin
+		    ;;&
 
-source ~/.bashrc
+	    4 | all)
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    echo "+                         EyeWitness                                +"
+		    echo "+      https://github.com/FortyNorthSecurity/EyeWitness             +"
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    git clone https://github.com/FortyNorthSecurity/EyeWitness.git "$Tools_dir/EyeWitness"
+		    cd $Tools_dir/EyeWitness/setup
+		    ./setup.sh
+		    ;;&
+
+	    5 | all)
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		    echo "+              SecLists and filter-resolved                         +"
+		    echo "+        https://github.com/danielmiessler/SecLists                 +"
+		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
+		    git clone https://github.com/danielmiessler/SecLists.git "$Tools_dir/SecLists"
+		    go get github.com/tomnomnom/hacks/filter-resolved
+		    echo "export PATH=$PATH:/root/go/bin" >> ~/.bashrc
+		    ;;
+
+	    leave)
+		    source ~/.bashrc
+		    exit
+		    ;;
+
+	    *)
+		    echo "Enter a valid option"
+		    ;;
+	esac
+done
