@@ -1,5 +1,4 @@
-#### Purpose
-====  
+#### Purpose  
 
 
 This repository contains different scripts that is written to automate different tasks like  
