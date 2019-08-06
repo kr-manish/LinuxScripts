@@ -17,7 +17,7 @@ echo "You have following options --
 	-- all - Run all of them
 	-- leave - Leave the Setup"
 
-while:
+while :
 do
     read -p 'Choose option: ' input_str
     case $input_str in
