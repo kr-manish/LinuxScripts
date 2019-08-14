@@ -7,6 +7,7 @@ echo "Options --
 	-- 3 - GITHUB ssh-key addition (some manual work)
 	-- 4 - initial local git setup
 	-- 5 - VIM Vundle Setup
+	-- 6 - Peda for gdb
 	-- all
 	-- leave"
 while :
@@ -52,6 +53,13 @@ do
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 			cp vimrc ~/.vimrc
 			echo "Open vim and run the command - :PluginInstall"
+			;;&
+
+		6 | all)
+			echo "==============PEDA-GDB=============="
+			git clone https://github.com/longld/peda.git ~/peda
+			echo "source ~/peda/peda.py" >> ~/.gdbinit
+			echo "Peda is now ready"
 			;;
 
 		leave)
