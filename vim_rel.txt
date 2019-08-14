@@ -1,0 +1,36 @@
+This file contains some useful tricks for VIM
+
+Motions:
+-> a - all
+-> i - in 
+-> t - until 
+-> f - find forward 
+-> F - find backward 
+
+Commands:
+-> d - delete
+-> c - change -> same as delete but it goes in insert mode after delete
+-> y - yank
+-> v - visually select
+
+We can do following with these:
+{commands}{motion}
+
+For example:
+	diw -> delete in word
+	ct" -> change until "
+	caw -> change all word
+	ya" -> copy all inside " including "
+
+
+Macros -> records a sequence of commands in a register
+	q{register} ....do anything.... q
+	Play a macro -> @{register}
+
+ # POWERLINE SETTINGS for terminal 
+export TERM=xterm
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+# https://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
