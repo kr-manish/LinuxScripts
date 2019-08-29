@@ -32,7 +32,7 @@ do
 		    sudo systemctl enable snapd
 		    sudo systemctl start apparmor
 		    sudo systemctl enable apparmor
-		    echo "export PATH=$PATH:/snap/bin" >> ~/.bashrc
+		    echo "AMASS_PATH=/snap/bin" >> ~/.bashrc
 		    sleep 5
 		    ;;&
 
@@ -67,6 +67,7 @@ do
 		    git clone https://github.com/FortyNorthSecurity/EyeWitness.git "$Tools_dir/EyeWitness"
 		    cd $Tools_dir/EyeWitness/setup
 		    ./setup.sh
+		    echo 'alias eyewitness="/root/Tools/EyeWitness/EyeWitness.py"' >> ~/.bashrc
 		    ;;&
 
 	    5 | all)
@@ -76,11 +77,13 @@ do
 		    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 		    git clone https://github.com/danielmiessler/SecLists.git "$Tools_dir/SecLists"
+		    snap install go --classic
 		    go get github.com/tomnomnom/hacks/filter-resolved
-		    echo "export PATH=$PATH:/root/go/bin" >> ~/.bashrc
+		    echo "F_PATH=/root/go/bin" >> ~/.bashrc
 		    ;;
 
 	    leave)
+		    echo "export PATH=$PATH:$AMASS_PATH:$F_PATH" >> ~/.bashrc
 		    source ~/.bashrc
 		    exit
 		    ;;
