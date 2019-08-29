@@ -8,6 +8,7 @@ echo "Options --
 	-- 4 - initial local git setup
 	-- 5 - VIM Vundle Setup
 	-- 6 - Peda for gdb
+	-- 7 - Jekyll Setup
 	-- all
 	-- leave"
 while :
@@ -60,6 +61,16 @@ do
 			git clone https://github.com/longld/peda.git ~/peda
 			echo "source ~/peda/peda.py" >> ~/.gdbinit
 			echo "Peda is now ready"
+			;;&
+
+		7 | all)
+			echo "==============JEKYLL================"
+			apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev
+			gem install nokogiri
+			gem install bundler
+			gem install jekyll bundler
+			bundle install
+			echo "Run 'bundle exec jekyll serve --watch --drafts"
 			;;
 
 		leave)
