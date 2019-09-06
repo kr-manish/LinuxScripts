@@ -110,3 +110,6 @@ noremap <Right> <NOP>
 
 let python_highlight_all=1
 syntax on
+
+" YCM related
+let g:ycm_autoclose_preview_window_after_insertion = 1

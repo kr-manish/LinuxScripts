@@ -27,6 +27,16 @@ Macros -> records a sequence of commands in a register
 	q{register} ....do anything.... q
 	Play a macro -> @{register}
 
+Pipe commands to shell and get back the result into VIM:
+	:%! -> % is for current file and ! is for run following in shell
+	for example: :%!grep -v .....
+
+Vertically select lines and delete:
+	ctrl+v -> to go in visual block and use up down keys
+
+Search -> /\.$ -> This will search for dot at the end of the line
+	:%s// -> last searched thing if we don't provide anything here
+
  # POWERLINE SETTINGS for terminal 
 export TERM=xterm
 powerline-daemon -q
