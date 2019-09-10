@@ -37,6 +37,8 @@ Vertically select lines and delete:
 Search -> /\.$ -> This will search for dot at the end of the line
 	:%s// -> last searched thing if we don't provide anything here
 
+Put vim on hold and go to shell -> :sh
+
  # POWERLINE SETTINGS for terminal 
 export TERM=xterm
 powerline-daemon -q
