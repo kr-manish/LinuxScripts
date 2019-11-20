@@ -1,0 +1,3 @@
+[DEFAULT]
+LOCATION=file:///root/volatility/windows/sample001.bin
+PROFILE=WinXPSP3x86
