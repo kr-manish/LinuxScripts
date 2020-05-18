@@ -27,28 +27,24 @@ Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'Valloric/YouCompleteMe'
+Plugin 'thiagoalessio/rainbow_levels.vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()            " required filetype plugin indent on    " required
 
 "==========GENERAL CONFIG============
 
-if has('gui_running')
-    set background=dark
-    colorscheme solarized
-else
-    colorscheme zenburn
-endif
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 let python_highlight_all=1
 syntax on
 
-" enable syntax processing
-syntax enable
 
 " Spaces & Tabs
-au BufNewFile,BufRead *.py
+au BufNewFile,BufRead *.*
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -59,7 +55,8 @@ au BufNewFile,BufRead *.py
 
 " UI CONFIG
 " show line numbers
-set number
+" set number
+set number relativenumber
 
 " show command in bottom bar
 set showcmd
@@ -96,17 +93,15 @@ set nowb
 set splitbelow
 set splitright
 
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 " Stop using up and down arrows
 noremap <Up> <NOP> 
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+inoremap <UP> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
 
 let python_highlight_all=1
 syntax on
@@ -117,3 +112,34 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " persistent undo
 set undofile " Maintain undo history between sessions
 set undodir=~/.vim/undodir
+
+" automatically turning rainbowlevels on
+au FileType python,yaml :RainbowLevelsOn
+
+" remap ESC
+inoremap jj <ESC>
+
+" ====================== statusline ===============================
+
+function! GitBranch()
+    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! GetGitBranch()
+    let l:branchname=GitBranch()
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':'     '
+endfunction
+
+set laststatus=2                        " To show statusline all the time
+set statusline=                         " To set
+set statusline+=%#Pmenu#                " Background highlights (:so /usr/share/vim/vim82/syntax/hitest.vim )
+set statusline+=%{&modified?'[+]':''}    " Whether modified or not
+set statusline+=%{GetGitBranch()}       " Git branch
+set statusline+=%#PmenuSel#             " Background
+set statusline+=\ %f                    " file name
+set statusline+=%=                      " shift to righside
+set statusline+=%l                      " current line
+set statusline+=/                       " Separator
+set statusline+=%L\ |                      " Total lines
+set statusline+=%#Pmenu#                " Background highlights (:so /usr/share/vim/vim82/syntax/hitest.vim )
+set statusline+=\ %p%%                   " Percentage
