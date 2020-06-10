@@ -1,7 +1,5 @@
+" Use vim settings and not vi
 set nocompatible
-
-" enable filetype detection
-filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -22,17 +20,20 @@ Plugin 'altercation/vim-colors-solarized'
 " Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'thiagoalessio/rainbow_levels.vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required filetype plugin indent on    " required
+call vundle#end()  
 
 "==========GENERAL CONFIG============
+
+" enable filetype detection
+filetype off
 
 syntax enable
 set background=dark
@@ -42,9 +43,8 @@ colorscheme solarized
 let python_highlight_all=1
 syntax on
 
-
 " Spaces & Tabs
-au BufNewFile,BufRead *.*
+au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -60,7 +60,10 @@ set number relativenumber
 
 " show command in bottom bar
 set showcmd
+set showmode
 
+set wildmenu			" display command line's tab complete options as a menu
+set title			" set title to show current file name
 " highlight current line
 set cursorline
 
@@ -119,6 +122,16 @@ au FileType python,yaml :RainbowLevelsOn
 " remap ESC
 inoremap jj <ESC>
 
+" netrw (file listing plugin) style
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4		" To open a new file in new buffer keeping the dir tree at one side
+
+" split windows switching
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+
 " ====================== statusline ===============================
 
 function! GitBranch()
@@ -136,8 +149,10 @@ set statusline+=%#Pmenu#                " Background highlights (:so /usr/share/
 set statusline+=%{&modified?'[+]':''}    " Whether modified or not
 set statusline+=%{GetGitBranch()}       " Git branch
 set statusline+=%#PmenuSel#             " Background
-set statusline+=\ %f                    " file name
+set statusline+=\ %f\ |                    " file name
+set statusline+=%r
 set statusline+=%=                      " shift to righside
+set statusline+=%y\ |
 set statusline+=%l                      " current line
 set statusline+=/                       " Separator
 set statusline+=%L\ |                      " Total lines
