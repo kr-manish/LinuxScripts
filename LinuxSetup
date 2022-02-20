@@ -9,6 +9,7 @@ echo "Options --
 	-- 5 - VIM Vundle Setup
 	-- 6 - Peda for gdb
 	-- 7 - Jekyll Setup
+	-- 8 - GEF installation
 	-- all
 	-- leave"
 while :
@@ -71,8 +72,12 @@ do
 			gem install jekyll bundler
 			bundle install
 			echo "Run 'bundle exec jekyll serve --watch --drafts"
+			;;&
+		8 | all)
+			echo "===============GEF=================="
+			bash -c "$(curl -fsSL http://gef.blah.cat/sh)"
+			echo "Check for documentation: https://gef.readthedocs.io/en/master/"
 			;;
-
 		leave)
 			exit
 			;;
